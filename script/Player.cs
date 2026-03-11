@@ -5,10 +5,24 @@ public partial class Player : Area2D
 {
 	[Export]
 	public int Speed { get; set; } = 400; // How fast the player will move (pixels/sec).
-	
+
+	[Signal]
+	public delegate void HitEventHandler();
+
 	public Vector2 ScreenSize; // Size of the game window.
 	public Vector2 velocity = Vector2.Zero; 
 	
+	public AnimatedSprite2D getAnimatedSprite()
+	{
+		return GetNode<AnimatedSprite2D>("AnimatedSprite2D");
+	}
+
+	public void Start(Vector2 position)
+	{
+		Position = position;
+		Show();
+		GetNode<CollisionShape2D>("CollisionShape2D").Disabled = false;
+	}
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -20,6 +34,7 @@ public partial class Player : Area2D
 	{
 		movingAndAnimate();
 		updatePosition(delta);
+		switchAnimationState();
 	}
 	
 	private void movingAndAnimate()
@@ -43,8 +58,8 @@ public partial class Player : Area2D
 		{
 			velocity.Y -= 1;
 		}
-		
-		var animatedSprite2D = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
+
+		var animatedSprite2D = getAnimatedSprite();
 		if (velocity.Length() > 0)
 		{
 			velocity = velocity.Normalized() * Speed;
@@ -63,5 +78,30 @@ public partial class Player : Area2D
 			x: Mathf.Clamp(Position.X, 0, ScreenSize.X),
 			y: Mathf.Clamp(Position.Y, 0, ScreenSize.Y)
 		);
+	}
+	
+	private void switchAnimationState()
+	{
+		var animatedSprite2D = getAnimatedSprite();
+		if (velocity.X != 0)
+		{
+			animatedSprite2D.Animation = "walk";
+			animatedSprite2D.FlipV = false;
+			// See the note below about the following boolean assignment.
+			animatedSprite2D.FlipH = velocity.X < 0;
+		}
+		else if (velocity.Y != 0)
+		{
+			animatedSprite2D.Animation = "up";
+			animatedSprite2D.FlipV = velocity.Y > 0;
+		}
+	}
+
+	private void OnBodyEntered(Node2D body)
+	{
+		Hide(); // Player disappears after being hit.
+		EmitSignal(SignalName.Hit);
+		// Must be deferred as we can't change physics properties on a physics callback.
+		GetNode<CollisionShape2D>("CollisionShape2D").SetDeferred(CollisionShape2D.PropertyName.Disabled, true);
 	}
 }

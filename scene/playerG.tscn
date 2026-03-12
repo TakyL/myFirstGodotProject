@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://dm35ipjpjmanc"]
+
+[ext_resource type="Script" uid="uid://fxe78wa2sj7r" path="res://script/PlayerG.cs" id="1_d4p2g"]
+[ext_resource type="Texture2D" uid="uid://bv1oit5hc8s56" path="res://art/kenney_1-bit-pack/Tilesheet/colored-transparent_packed.png" id="1_ue8qf"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_d4p2g"]
+size = Vector2(12.5, 15.5)
+
+[node name="Player" type="CharacterBody2D" unique_id=1890071000]
+motion_mode = 1
+script = ExtResource("1_d4p2g")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1874361093]
+texture = ExtResource("1_ue8qf")
+centered = false
+region_enabled = true
+region_rect = Rect2(385.77374, 63.9832, 12.954254, 16.655472)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=193823904]
+position = Vector2(6.75, 8.25)
+shape = SubResource("RectangleShape2D_d4p2g")
+
+[node name="RayCast2D" type="RayCast2D" parent="." unique_id=814899465]
+position = Vector2(7, 8.5)
+target_position = Vector2(17, 0)

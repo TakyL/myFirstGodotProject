@@ -4,10 +4,12 @@ using System;
 public partial class Hud : CanvasLayer
 {
 	
-	  [Signal]
-	public delegate void StartGameEventHandler();
-	
-	
+
+	[Signal]
+	public delegate void EndTourEventHandler();
+
+	[Signal]
+	public delegate void TempEndTourEventHandler();
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -46,10 +48,22 @@ public partial class Hud : CanvasLayer
 		GetNode<Label>("ScoreLabel").Text = score.ToString();
 	}
 
-	private void OnStartButtonPressed()
+	private void OnEndTourButtonPressed()
 	{
-		GetNode<Button>("StartButton").Hide();
-		EmitSignal(SignalName.StartGame);
+		GetNode<Button>("EndTourButton").Hide();
+		EmitSignal(SignalName.EndTour);
+	}
+
+	public void ShowPlayerUI()
+	{
+		GetNode<Button>("EndTourButton").Show();
+		//Print other UI Stuff like HP, ATK,...
+	}
+	//Simule l'action d'un tour d'un méchant =(
+	public void OnTempEndTourButtonPressed()
+	{
+		EmitSignal(SignalName.TempEndTour);
+
 	}
 
 	// We also specified this function name in PascalCase in the editor's connection window.

@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://cec15qkqsasy2" path="res://art/kenney_1-bit-pack/Sample_fantasy.png" id="2_w4qq1"]
 [ext_resource type="PackedScene" uid="uid://dm35ipjpjmanc" path="res://scene/playerG.tscn" id="3_w4qq1"]
 [ext_resource type="PackedScene" uid="uid://d1g16n1ny2s4l" path="res://scene/hud.tscn" id="4_0tg4p"]
+[ext_resource type="Script" uid="uid://dh3lo5sjs3o46" path="res://script/CharacterStats.cs" id="6_0tg4p"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_m5mgf"]
 texture = ExtResource("1_txmk2")
@@ -2648,6 +2649,10 @@ physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_m5mgf")
 sources/1 = SubResource("TileSetAtlasSource_emkrx")
 
+[sub_resource type="Resource" id="Resource_hcb8y"]
+script = ExtResource("6_0tg4p")
+metadata/_custom_type_script = "uid://dh3lo5sjs3o46"
+
 [node name="World" type="Node2D" unique_id=1408335763]
 script = ExtResource("1_emkrx")
 
@@ -2659,6 +2664,7 @@ tile_set = SubResource("TileSet_0tg4p")
 
 [node name="Player" parent="." unique_id=1890071000 instance=ExtResource("3_w4qq1")]
 position = Vector2(561, 222)
+Stats = SubResource("Resource_hcb8y")
 
 [connection signal="EndTour" from="HUD" to="." method="HandleSwitchTour"]
 [connection signal="TempEndTour" from="HUD" to="." method="HandleSwitchTour"]

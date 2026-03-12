@@ -3,9 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Xml;
 
-public partial class PlayerG : CharacterBody2D
+public partial class PlayerG : BaseCharacter
 {
-	public int CasesPerTour = 4;
+	public int CasesPerTour = 0;
 	public int currentMoving = 0;
 	public bool actifTour = false;
 
@@ -22,7 +22,9 @@ public partial class PlayerG : CharacterBody2D
 
 	public override void _Ready()
 	{
+		base._Ready();
 		MotionMode = MotionModeEnum.Floating;
+		CasesPerTour = Stats.MovingCase;
 		_rayCast2D = GetNode<RayCast2D>("RayCast2D");
 		BeginTour();
 	}

@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Projet de jeu uwu"
-run/main_scene="uid://drvbenth016ap"
+run/main_scene="uid://44hqipwd0scl"
 config/features=PackedStringArray("4.6", "C#", "Forward Plus")
 config/icon="res://icon.svg"
 

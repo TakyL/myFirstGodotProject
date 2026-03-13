@@ -5,9 +5,6 @@ using System.Xml;
 
 public partial class PlayerG : BaseCharacter
 {
-	public int CasesPerTour = 0;
-	public int currentMoving = 0;
-	public bool actifTour = false;
 
 	private readonly Dictionary<string, Vector2> _inputs = new()
 	{
@@ -24,8 +21,8 @@ public partial class PlayerG : BaseCharacter
 	{
 		base._Ready();
 		MotionMode = MotionModeEnum.Floating;
-		CasesPerTour = Stats.MovingCase;
 		_rayCast2D = GetNode<RayCast2D>("RayCast2D");
+		AddToGroup("player");
 		BeginTour();
 	}
 
@@ -46,8 +43,6 @@ public partial class PlayerG : BaseCharacter
 
 	private void HandleMoving(string action)
 	{
-		if (currentMoving != CasesPerTour)
-		{
 			Vector2 direction = _inputs[action] * _gridSize;
 			Vector2 newPosition = Position + direction;
 
@@ -55,16 +50,6 @@ public partial class PlayerG : BaseCharacter
 			{
 				UpdatePosition(newPosition);
 			}
-		}
-		else
-		{
-			GD.Print("Max distance reached");
-		}
-	}
-	private void UpdatePosition(Vector2 newPosition)
-	{
-		Position = newPosition;
-		currentMoving++;
 	}
 
 	public bool IsPositionColliding(Vector2 direction)

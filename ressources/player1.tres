@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="CharacterStats" format=3 uid="uid://unt5cpa80b1k"]
+
+[ext_resource type="Script" uid="uid://dh3lo5sjs3o46" path="res://script/CharacterStats.cs" id="1_ghd4t"]
+
+[resource]
+resource_local_to_scene = true
+script = ExtResource("1_ghd4t")
+MaxHealth = 130
+MovingCase = 3

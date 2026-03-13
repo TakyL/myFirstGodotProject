@@ -30,6 +30,8 @@ public partial class World : Node2D
 			PlayerTour=false;
 			GetNode<PlayerG>("Player").EndTour();
 			GD.Print("Le tour eest à l'ennemy");
+			GetNode<Ennemydefault>("Enemy").PlayTour();
+
 		}
 		else if (EnemyTour) 
 		{

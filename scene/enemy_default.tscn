@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://b2cxhld64luoi"]
+
+[ext_resource type="Script" uid="uid://de3n6kp1tbgrq" path="res://scene/Ennemydefault.cs" id="1_4htmh"]
+[ext_resource type="Texture2D" uid="uid://dd8lwucp6jgwl" path="res://art/kenney_1-bit-pack/Tilesheet/colored_packed.png" id="2_hi2mh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jc4tl"]
+
+[node name="EnemyDefault" type="CharacterBody2D" unique_id=1533007399]
+motion_mode = 1
+script = ExtResource("1_4htmh")
+
+[node name="RayCast2D" type="RayCast2D" parent="." unique_id=1404288796]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=342701004]
+shape = SubResource("RectangleShape2D_jc4tl")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=548538821]
+texture = ExtResource("2_hi2mh")
+region_enabled = true
+region_rect = Rect2(465.76376, 96.66622, 12.865326, 15.545593)

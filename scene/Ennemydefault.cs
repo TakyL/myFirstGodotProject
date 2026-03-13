@@ -28,11 +28,11 @@ public partial class Ennemydefault : BaseCharacter
 
 		//GD.Print(resizePosition, targetPosition, reste);
 
-		List<Vector2I> path = pathfinder.FindShortestPath((Vector2I)resizePosition,(Vector2I) targetPosition);	
-		foreach (Vector2I step in path.Skip(1).Take(moveCasePoints))
+		List<Vector2> path = pathfinder.FindShortestPath((Vector2I)resizePosition,(Vector2I) targetPosition);	
+		foreach (Vector2 step in path.Skip(1).Take(moveCasePoints))
 		{			
-			Vector2 calcVec = (Vector2)step + reste ;
-			UpdatePosition(calcVec*16);	
+			Vector2 calcVec = step + reste ;
+			UpdatePosition(calcVec);	
 		}
 
 	}

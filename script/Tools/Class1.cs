@@ -6,7 +6,7 @@ public partial class Pathfinder : Node
 	// Call this to get the shortest path between two grid positions
 	// Returns a list of Vector2I positions from source to target (inclusive)
 	// Returns empty list if no path found
-	public List<Vector2I> FindShortestPath(Vector2I sourcePosition, Vector2I targetPosition)
+	public List<Vector2> FindShortestPath(Vector2I sourcePosition, Vector2I targetPosition)
 	{
 		// A* open set: (fCost, position)
 		var openSet = new SortedSet<(int fCost, int tieBreak, Vector2I pos)>(
@@ -25,12 +25,12 @@ public partial class Pathfinder : Node
 		int hStart = Heuristic(sourcePosition, targetPosition);
 		openSet.Add((hStart, tieBreaker++, sourcePosition));
 
-		// 4-directional movement (up, down, left, right)
+		
 		Vector2I[] directions = {
-			new Vector2I(1, 0),
-			new Vector2I(-1, 0),
-			new Vector2I(0, 1),
-			new Vector2I(0, -1)
+			Vector2I.Up,
+			Vector2I.Down,
+			Vector2I.Left,
+			Vector2I.Right
 		};
 
 		while (openSet.Count > 0)
@@ -42,7 +42,7 @@ public partial class Pathfinder : Node
 
 			// Reached target — reconstruct path
 			if (currentPos == targetPosition)
-				return ReconstructPath(cameFrom, currentPos);
+				return ConvertInGameVector(ReconstructPath(cameFrom, currentPos));
 
 			foreach (var dir in directions)
 			{
@@ -63,7 +63,7 @@ public partial class Pathfinder : Node
 			}
 		}
 
-		return new List<Vector2I>(); // no path found
+		return new List<Vector2>(); // no path found
 	}
 
 	// Manhattan distance heuristic — perfect for 4-directional grid movement
@@ -84,5 +84,17 @@ public partial class Pathfinder : Node
 		path.Add(current); // add source
 		path.Reverse();
 		return path;
+	}
+	/**
+	* Convert a list of 2I (grid based vector) to in game vector (16x16 grid)
+	**/
+	private List<Vector2> ConvertInGameVector(List<Vector2I> gridVectors)
+	{
+		List<Vector2> listOfGameVector=new List<Vector2>();
+		foreach (Vector2I gridV in gridVectors)
+		{
+			listOfGameVector.Add((Vector2)gridV*16);
+		}
+		return listOfGameVector;
 	}
 }

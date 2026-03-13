@@ -1,7 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
-
+using System.Linq;
 public partial class Ennemydefault : BaseCharacter
 {
 	// Called when the node enters the scene tree for the first time.
@@ -20,25 +20,19 @@ public partial class Ennemydefault : BaseCharacter
 	public void PlayTour()
 	{
 		//Check all the characters on the closest.
-		//Find 
 
-		var pathfinder = new Pathfinder();
+		Pathfinder pathfinder = new Pathfinder();
 		Vector2 resizePosition = Position / 16;
 		Vector2 targetPosition = fetchPlayerPosition() / 16;
 		Vector2 reste = resizePosition % 1f;
 
-		GD.Print(resizePosition, targetPosition, reste);
+		//GD.Print(resizePosition, targetPosition, reste);
 
-		List<Vector2I> path = pathfinder.FindShortestPath((Vector2I)resizePosition,(Vector2I) targetPosition);
-
-		foreach (Vector2I step in path)
+		List<Vector2I> path = pathfinder.FindShortestPath((Vector2I)resizePosition,(Vector2I) targetPosition);	
+		foreach (Vector2I step in path.Skip(1).Take(moveCasePoints))
 		{			
-		//	if(currentMoving != base.currentMoving)
-			{
-				Vector2 calcVec = step + reste;
-				UpdatePosition(calcVec);
-				GD.Print(calcVec);
-			}
+			Vector2 calcVec = (Vector2)step + reste ;
+			UpdatePosition(calcVec*16);	
 		}
 
 	}
@@ -47,7 +41,7 @@ public partial class Ennemydefault : BaseCharacter
 	{
 		Node2D player = GetTree().GetFirstNodeInGroup("player") as Node2D;
 
-		if (player == null) throw new Exception("Player not found"); // safety check
+		if (player == null) throw new Exception("Player not found"); 
 
 		return player.GlobalPosition;
 

@@ -10,6 +10,7 @@ motion_mode = 1
 script = ExtResource("1_4htmh")
 
 [node name="RayCast2D" type="RayCast2D" parent="." unique_id=1404288796]
+target_position = Vector2(17, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=342701004]
 shape = SubResource("RectangleShape2D_jc4tl")

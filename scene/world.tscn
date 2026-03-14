@@ -6,7 +6,9 @@
 [ext_resource type="PackedScene" uid="uid://dm35ipjpjmanc" path="res://scene/playerG.tscn" id="3_w4qq1"]
 [ext_resource type="PackedScene" uid="uid://d1g16n1ny2s4l" path="res://scene/hud.tscn" id="4_0tg4p"]
 [ext_resource type="Script" uid="uid://dh3lo5sjs3o46" path="res://script/CharacterStats.cs" id="6_0tg4p"]
+[ext_resource type="Script" uid="uid://csn36gt1yd2ux" path="res://script/Skill.cs" id="6_7ghph"]
 [ext_resource type="PackedScene" uid="uid://b2cxhld64luoi" path="res://scene/enemy_default.tscn" id="7_hcb8y"]
+[ext_resource type="Script" uid="uid://dasxi11kdgs1e" path="res://script/Attack.cs" id="7_na5tu"]
 [ext_resource type="Resource" uid="uid://3g2jlvgmrxn6" path="res://ressources/enemy.tres" id="8_y3jn2"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_m5mgf"]
@@ -2651,13 +2653,29 @@ physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_m5mgf")
 sources/1 = SubResource("TileSetAtlasSource_emkrx")
 
-[sub_resource type="Resource" id="Resource_y3jn2"]
+[sub_resource type="Resource" id="Resource_jsnws"]
+script = ExtResource("7_na5tu")
+Name = "Marteau"
+MultiplierRaw = "120%"
+metadata/_custom_type_script = "uid://dasxi11kdgs1e"
+
+[sub_resource type="Resource" id="Resource_f345f"]
+script = ExtResource("7_na5tu")
+Name = "Lance"
+Range = 2
+metadata/_custom_type_script = "uid://dasxi11kdgs1e"
+
+[sub_resource type="Resource" id="Resource_bqa5m"]
+script = ExtResource("6_7ghph")
+skill1 = SubResource("Resource_jsnws")
+skill2 = SubResource("Resource_f345f")
+metadata/_custom_type_script = "uid://csn36gt1yd2ux"
+
+[sub_resource type="Resource" id="Resource_a0bac"]
 resource_local_to_scene = true
 script = ExtResource("6_0tg4p")
 MaxHealth = 130
 MovingCase = 3
-AttackValue = null
-DefValue = null
 
 [node name="World" type="Node2D" unique_id=1408335763]
 script = ExtResource("1_emkrx")
@@ -2670,7 +2688,8 @@ tile_set = SubResource("TileSet_0tg4p")
 
 [node name="Player" parent="." unique_id=1890071000 instance=ExtResource("3_w4qq1")]
 position = Vector2(561, 222)
-Stats = SubResource("Resource_y3jn2")
+PlayerSkill = SubResource("Resource_bqa5m")
+Stats = SubResource("Resource_a0bac")
 
 [node name="Enemy" parent="." unique_id=1533007399 instance=ExtResource("7_hcb8y")]
 position = Vector2(637, 165)

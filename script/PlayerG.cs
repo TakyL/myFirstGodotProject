@@ -1,7 +1,6 @@
 using Godot;
 using System;
 using System.Collections.Generic;
-using System.Xml;
 
 public partial class PlayerG : BaseCharacter
 {
@@ -16,6 +15,8 @@ public partial class PlayerG : BaseCharacter
 
 	private int _gridSize = 16;
 	[Export] private RayCast2D _rayCast2D;
+
+	[Export] public Skill PlayerSkill { get; set; }
 
 	public override void _Ready()
 	{

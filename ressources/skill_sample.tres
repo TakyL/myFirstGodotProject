@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Skill" format=3 uid="uid://skill_sample"]
+
+[ext_resource type="Script" uid="uid://skill_script" path="res://script/Skill.cs" id="1"]
+[ext_resource type="Resource" uid="uid://attack_physical" path="res://ressources/attack_physical.tres" id="2"]
+[ext_resource type="Resource" uid="uid://attack_magical" path="res://ressources/attack_magical.tres" id="3"]
+
+[resource]
+resource_local_to_scene = true
+script = ExtResource("1")
+skill1 = ExtResource("2")
+skill2 = ExtResource("3")

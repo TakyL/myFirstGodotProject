@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="Attack" format=3 uid="uid://attack_physical"]
+
+[ext_resource type="Script" uid="uid://attack_script" path="res://script/Attack.cs" id="1"]
+
+[resource]
+resource_local_to_scene = true
+script = ExtResource("1")
+Name = "Physical Strike"
+Type = 0
+Range = 1
+MultiplierRaw = "100%"
+NbHit = 1

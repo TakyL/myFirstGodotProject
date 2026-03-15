@@ -9,4 +9,7 @@ public partial class CharacterStats : Resource
 	[Export] public int MovingCase;
 	[Export] public int AttackValue { get; set; } = 10;
 	[Export] public int DefValue {get;set;} = 5;
+	[Export] public int MagicValue { get; set; } 
+	[Export] public int ResValue { get; set; }
+	[Export] public int SpeedValue { get; set; }
 }

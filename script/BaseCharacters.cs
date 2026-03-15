@@ -5,11 +5,11 @@ public partial class BaseCharacter : CharacterBody2D
 {
 	[Export] public CharacterStats Stats { get; set; }
 
-	protected int currentHealth;
+	protected int currentHealth { get; set; }
 
-	protected int moveCasePoints;
-    public bool actifTour = false;
-    public int currentMoving = 0;
+	protected int moveCasePoints { get; set; }
+    public bool actifTour { get; set; } = false;
+    public int currentMoving { get; set; } = 0;
 
 
 
@@ -22,6 +22,21 @@ public partial class BaseCharacter : CharacterBody2D
 		}
 		currentHealth = Stats.MaxHealth;
 		moveCasePoints = Stats.MovingCase;		
+	}
+
+    public int GetCurrentHealth()
+    {
+        return currentHealth;
+    }
+
+    public int GetMoveCasePoints()
+    {
+        return moveCasePoints;
+    }
+
+	public void setCurrentHealth(int health)
+	{
+		currentHealth = health;
 	}
 
     protected void UpdatePosition(Vector2 newPosition)

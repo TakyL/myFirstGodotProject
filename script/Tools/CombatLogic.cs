@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using Godot;
+using System.Linq;
 
 public partial class CombatLogic
 {
@@ -25,21 +27,53 @@ public partial class CombatLogic
 			// Handle character defeat (e.g., remove from scene, play animation, etc.)
 		}
 	}*/
-
-	public bool checkIfActionPossible(int attackRange )
+	/**
+	*Check if the ennemy is in range
+	*/
+	private  bool checkIfActionPossible(int attackRange, int distanceToTarget )
 	{
+		//GD.Print("Checking Distance/AttackRange: " + distanceToTarget + ", " + attackRange);
 
-		if(attackRange > unit.currentMoving + unit.GetMoveCasePoints())
+		if(distanceToTarget > attackRange)  //IF enemy out of range
 		{
 			GD.Print("Action not possible: target is out of range.");
 			return false;
 		}
+		GD.Print("Action possible: target is within range.");
 		return true;
 	} 
-
-	public void ApplyDamage(Attack attackSelected)
+	public void moveNearTargetAndAttack(Attack attackSelected)
 	{
-		int damage = calculateDamage(attackSelected);
+		List<Vector2> casePoints =  new Pathfinder().FindShortestPath(unit.getPositionFormatCase(),target.getPositionFormatCase());
+		//GD.Print("Max distance unit "+unit.GetMoveCasePoints(),"Distance to target "+casePoints.Count);
+		int distanceCase = casePoints.Count - 1;  // Actual distance to target (path includes current position)
+		Vector2 reste = unit.Position % 1f;
+		
+		
+		foreach (Vector2 step in casePoints.Skip(1).Take(unit.GetMoveCasePoints()))
+		{			
+			if(checkIfActionPossible(attackSelected.Range,distanceCase)) 
+			{	
+				for(int i=0; i < attackSelected.NbHit; i++)
+				{
+					ApplyDamage(attackSelected);
+				}	
+				break;
+			}
+			else
+			{
+				Vector2 calcVec = step + reste ;
+				unit.UpdatePosition(calcVec);	
+				distanceCase--;
+			} 
+		}
+	
+	}
+
+
+	protected void ApplyDamage(Attack attackUsed)
+	{
+		int damage = calculateDamage(attackUsed);
 		target.setCurrentHealth(target.GetCurrentHealth() - damage);
 		GD.Print($"{target.Name} takes {damage} damage! Remaining HP: {target.GetCurrentHealth()}");
 	}

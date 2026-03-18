@@ -39,7 +39,7 @@ public partial class BaseCharacter : CharacterBody2D
 		currentHealth = health;
 	}
 
-    protected void UpdatePosition(Vector2 newPosition)
+    public void UpdatePosition(Vector2 newPosition)
     {
 		if(currentMoving !=  moveCasePoints)
 		{
@@ -52,5 +52,14 @@ public partial class BaseCharacter : CharacterBody2D
         }
 
     }
+    /**
+    *Return the position to the case format (16*16)
+    */
+    public Vector2I getPositionFormatCase()
+    {
+        //FIXME See if Global Position is better
+        return  (Vector2I) Position / 16;
+    }
+
 
 }

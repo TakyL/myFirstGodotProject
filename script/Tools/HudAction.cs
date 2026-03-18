@@ -42,10 +42,7 @@ public partial class HudAction
 						{
 							GD.Print("it is an ennemy congrats");
 
-							if(combatLogic.checkIfActionPossible(attackSelected.Range))
-							{
-								combatLogic.ApplyDamage(attackSelected);
-							};
+							combatLogic.moveNearTargetAndAttack(attackSelected);
 							return true;
 						}
 					}

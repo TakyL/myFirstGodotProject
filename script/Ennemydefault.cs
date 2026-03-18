@@ -22,12 +22,12 @@ public partial class Ennemydefault : BaseCharacter
 		//Check all the characters on the closest.
 
 		Pathfinder pathfinder = new Pathfinder();
-		Vector2 resizePosition = Position / 16;
+		Vector2 resizePosition = getPositionFormatCase();
 		Vector2 targetPosition = fetchPlayerPosition() / 16;
 		Vector2 reste = resizePosition % 1f;
 
 		//GD.Print(resizePosition, targetPosition, reste);
-
+		
 		List<Vector2> path = pathfinder.FindShortestPath((Vector2I)resizePosition,(Vector2I) targetPosition);	
 		foreach (Vector2 step in path.Skip(1).Take(moveCasePoints))
 		{			
@@ -36,7 +36,7 @@ public partial class Ennemydefault : BaseCharacter
 		}
 
 	}
-	//TEMP another class later 
+	//TEMP TODO another class later + fetch based on static list : closest ennemy, lowestdef, lowesthp, lowestatk... which is treated as a ressource
 	private Vector2 fetchPlayerPosition()
 	{
 		Node2D player = GetTree().GetFirstNodeInGroup("player") as Node2D;

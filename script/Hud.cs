@@ -39,7 +39,7 @@ public partial class Hud : CanvasLayer
 	{
 		GetNode<Button>("EndTourButton").Show();
 		FetchPlayerSkill();
-				_skillContainer.Show();
+		_skillContainer.Show();
 
 		//Print other UI Stuff like HP, ATK,...
 	}

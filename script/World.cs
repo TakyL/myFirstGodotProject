@@ -8,6 +8,7 @@ public partial class World : Node2D
 	public bool selectingTarget = false;
 	public Attack currentSkill;
 	public int gridSize = 16;
+	private GridOverlay _gridOverlay;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -15,7 +16,45 @@ public partial class World : Node2D
 		PlayerTour = true;
 		GetNode<Hud>("HUD").Connect("UseSkill", new Callable(this, "OnUseSkill"));
 		StartPlayerTour();
+
+		_gridOverlay = new GridOverlay();
+		_gridOverlay.Name = "WorldGridOverlay";
+		_gridOverlay.CellSize = gridSize;
+		_gridOverlay.LineColor = new Color(1f, 1f, 1f, 0.35f);
+		_gridOverlay.LineWidth = 1f;
+
+		ConfigureWorldGridOverlay();
+
+		AddChild(_gridOverlay);
+		_gridOverlay.ZIndex = 100; // Draw on top of world tiles
+		_gridOverlay.QueueRedraw();
 	}
+
+	private void ConfigureWorldGridOverlay()
+	{
+		var tileMap = GetNodeOrNull<TileMapLayer>("TileMapLayer");
+
+		if (tileMap != null)
+		{
+			var usedRect = tileMap.GetUsedRect();
+			_gridOverlay.CellSize = gridSize;
+			_gridOverlay.Columns = Math.Max(1, usedRect.Size.X);
+			_gridOverlay.Rows = Math.Max(1, usedRect.Size.Y);
+
+			// The TileMap origin may not be at world origin; adjust overlay position accordingly.
+			var mapTopLeft = tileMap.MapToLocal(new Vector2I(usedRect.Position.X, usedRect.Position.Y));
+			_gridOverlay.Position = tileMap.Position + mapTopLeft;
+		}
+		else
+		{
+			// Fallback to 16x16 world grid at origin
+			_gridOverlay.Columns = 16;
+			_gridOverlay.Rows = 16;
+			_gridOverlay.Position = Vector2.Zero;
+		}
+
+		_gridOverlay.QueueRedraw();
+	} 
 
 
 	public void StartPlayerTour()

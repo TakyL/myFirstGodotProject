@@ -2671,11 +2671,16 @@ skill1 = SubResource("Resource_jsnws")
 skill2 = SubResource("Resource_f345f")
 metadata/_custom_type_script = "uid://csn36gt1yd2ux"
 
-[sub_resource type="Resource" id="Resource_a0bac"]
+[sub_resource type="Resource" id="Resource_7ghph"]
 resource_local_to_scene = true
 script = ExtResource("6_0tg4p")
 MaxHealth = 130
 MovingCase = 3
+AttackValue = null
+DefValue = null
+MagicValue = null
+ResValue = null
+SpeedValue = null
 
 [node name="World" type="Node2D" unique_id=1408335763]
 script = ExtResource("1_emkrx")
@@ -2689,11 +2694,8 @@ tile_set = SubResource("TileSet_0tg4p")
 [node name="Player" parent="." unique_id=1890071000 instance=ExtResource("3_w4qq1")]
 position = Vector2(561, 222)
 PlayerSkill = SubResource("Resource_bqa5m")
-Stats = SubResource("Resource_a0bac")
+Stats = SubResource("Resource_7ghph")
 
 [node name="Enemy" parent="." unique_id=1533007399 instance=ExtResource("7_hcb8y")]
 position = Vector2(637, 165)
 Stats = ExtResource("8_y3jn2")
-
-[connection signal="EndTour" from="HUD" to="." method="HandleSwitchTour"]
-[connection signal="TempEndTour" from="HUD" to="." method="HandleSwitchTour"]
